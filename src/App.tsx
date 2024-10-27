@@ -1,12 +1,14 @@
+import { useState } from "react";
 import Claim from "./views/claimForm/Claim"
-import ClaimForm from "./views/claimForm/ClaimForm"
+import ClaimContextProvider, { CustomObject } from "./store/claimContext";
 
 function App() {
+  const [claimData, setClaimData] = useState<CustomObject>({});
 
   return (
-    <>
+    <ClaimContextProvider value={{claimData, setClaimData}}>
       <Claim />
-    </>
+    </ClaimContextProvider>
   )
 }
 

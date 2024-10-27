@@ -11,19 +11,21 @@ import {
 import { booleanOptions, dateFormate } from "../constants";
 import RadioGroup from "./RadioGroup";
 import SubTitle from "./SubTitle";
+import { useClaimContext } from "../../../store/claimContext";
+import { MouseEventHandler } from "react";
 
 interface IProps {
   next: Function;
-  prev: Function;
-  setData: Function;
+  prev: MouseEventHandler<HTMLElement>;
 }
 
-export default function AdditionalClaimInfo({ next, setData, prev }: IProps) {
+export default function AdditionalClaimInfo({ next, prev }: IProps) {
   const [form] = Form.useForm();
+  const {setClaimData} = useClaimContext();
 
   const onFinish = (values: any) => {
     console.log(values);
-    setData(values);
+    setClaimData(values);
     next();
   };
 
@@ -34,116 +36,133 @@ export default function AdditionalClaimInfo({ next, setData, prev }: IProps) {
         <Col span={8}>
           <Form.Item
             label="WCB Authorization Number:"
-            name="wcb_auth_number"
-            rules={[
-              { required: true, message: "Enter WCB Authorization Number" },
-            ]}
+            name={["additional_claim_information", "wcb_authorization_number"]}
+            help="Authorization Number is Required!"
+            rules={[{ required: true }]}
           >
-            <Input maxLength={29} />
+            <Input name="additional-claim-information/wcb-authorization-number" maxLength={15} />
           </Form.Item>
         </Col>
         <Col span={8}>
           <Form.Item
             label="WCB Rating Code:"
-            name="wcb_rating_code"
-            rules={[{ required: true, message: "WCB Rating Code" }]}
+            name={["additional_claim_information", "wcb_rating_code"]}
+            help="Rating Code is Required!"
+            rules={[{ required: true }]}
           >
-            <Input maxLength={29} />
+            <Input name="additional-claim-information/wcb-rating-code" maxLength={12} />
           </Form.Item>
         </Col>
         <Col span={8}>
           <Form.Item
             label="Report Type Code:"
-            name="report_type_code"
-            rules={[{ required: true, message: "WCB Rating Code" }]}
+            name={["additional_claim_information", "report_type_code"]}
+            help="Type Code is Required!"
+            rules={[{ required: true }]}
           >
-            <Input maxLength={29} />
+            <Input name="additional-claim-information/report-type-code" maxLength={5} />
           </Form.Item>
         </Col>
         <Col span={8}>
           <Form.Item
             label="Transmission Type Code:"
-            name="transmission_type_code"
+            name={["additional_claim_information", "transmission_type_code"]}
+            help="Type Code is Required!"
+            rules={[{ required: true }]}
           >
-            <Input maxLength={29} />
+            <Input name="additional-claim-information/transmission-type-code" maxLength={1} />
           </Form.Item>
         </Col>
         <Col span={8}>
           <Form.Item
             label="Attachment Control ID:"
-            name="attachment_control_id"
+            name={["additional_claim_information", "attachment_control_id"]}
+            help="Control ID is Required!"
+            rules={[{ required: true }]}
           >
-            <Input maxLength={29} />
+            <Input name="additional-claim-information/attachment-control-id" maxLength={15} />
           </Form.Item>
         </Col>
         <Col span={8}>
           <Form.Item
             label="Carrier Received Date:"
-            name="carrier_received_date"
+            name={["additional_claim_information", "carrier_received_date"]}
+            help="Received Date is Required!"
+            rules={[{ required: true }]}
           >
-            <Input maxLength={29} />
+            <Input name="additional-claim-information/carrier-received-date" maxLength={14} />
           </Form.Item>
         </Col>
         <Col span={8}>
           <Form.Item
-            label="Unable to Work Date:"
-            name={["unable_to_work_date"]}
+            label="Unable to Work From Date:"
+            name={["patient", "dates_patient_unable_to_work_in_current_operation", "from_date"]}
           >
-            <DatePicker.RangePicker
-              style={{ width: "100%" }}
-              placeholder={[dateFormate, dateFormate]}
-              format={dateFormate}
-            />
+            <DatePicker className="w-full" name="patient/dates-patient-unable-to-work-in-current-operation/from-date" placeholder={dateFormate} format={dateFormate} />
           </Form.Item>
         </Col>
         <Col span={8}>
           <Form.Item
-            label="Hospitalization Date:"
-            name={["hospitalization_date"]}
+            label="Unable to Work To Date:"
+            name={["patient", "dates_patient_unable_to_work_in_current_operation", "to_date"]}
           >
-            <DatePicker.RangePicker
-              style={{ width: "100%" }}
-              placeholder={[dateFormate, dateFormate]}
-              format={dateFormate}
-            />
+            <DatePicker className="w-full" name="patient/dates-patient-unable-to-work-in-current-operation/to-date" placeholder={dateFormate} format={dateFormate} />
+          </Form.Item>
+        </Col>
+        <Col span={8}>
+          <Form.Item
+            label="Hospitalization From Date:"
+            name={["physician_or_supplier", "hospitalization_dates_related_to_current_services", "from_date"]}
+          >
+            <DatePicker className="w-full" name="physician-or-supplier/hospitalization-dates-related-to-current-services/from-date" placeholder={dateFormate} format={dateFormate} />
+          </Form.Item>
+        </Col>
+        <Col span={8}>
+          <Form.Item
+            label="Hospitalization To Date:"
+            name={["physician_or_supplier", "hospitalization_dates_related_to_current_services", "to_date"]}
+          >
+            <DatePicker className="w-full" name="physician-or-supplier/hospitalization-dates-related-to-current-services/to-date" placeholder={dateFormate} format={dateFormate} />
           </Form.Item>
         </Col>
         <Col span={8}>
           <Form.Item
             label="Outside Lab:"
-            name={["is_outside_lab"]}
-            style={{ marginBottom: 0 }}
+            name={["physician_or_supplier", "outside_lab_flag"]}
           >
-            <RadioGroup options={booleanOptions} />
+            <RadioGroup name="physician-or-supplier/outside-lab-flag" options={booleanOptions} />
           </Form.Item>
         </Col>
         <Col span={8}>
           <Form.Item
             label="Outside Lab Charges:"
-            name={["outside_lab_charges"]}
+            name={["physician_or_supplier", "outside_lab_flag", "charges"]}
           >
-            <InputNumber style={{ width: "100%" }} controls={false} />
+            <Input name="physician-or-supplier/outside-lab-flag/charges" maxLength={8} />
           </Form.Item>
         </Col>
         <Col span={8}>
-          <Form.Item label="Resubmission Code:" name="resubmission_code">
-            <Input maxLength={29} />
+          <Form.Item
+            label="Resubmission Code:"
+            name={["physician_or_supplier", "resubmission", "code"]}
+          >
+            <Input name="physician-or-supplier/resubmission/code" maxLength={11} />
           </Form.Item>
         </Col>
         <Col span={8}>
           <Form.Item
             label="Original Reference Number:"
-            name="original_ref_number"
+            name={["physician_or_supplier", "resubmission", "original_reference_number"]}
           >
-            <Input maxLength={2} />
+            <Input name="physician-or-supplier/resubmission/original-reference-number" maxLength={18} />
           </Form.Item>
         </Col>
         <Col span={8}>
           <Form.Item
             label="Prior Authorization Number:"
-            name="prior_auth_number"
+            name={["physician_or_supplier", "prior_authorization_number"]}
           >
-            <Input maxLength={24} />
+            <Input name="physician-or-supplier/prior-authorization-number" maxLength={29} />
           </Form.Item>
         </Col>
       </Row>

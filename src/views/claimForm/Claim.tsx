@@ -18,17 +18,7 @@ const menuItems = [
 
 
 export default function Claim() {
-  const [page, setPage] = useState<number>(4);
-
-  const [data, setData] = useState<any>();
-
-  const updateData = (res: any) => {
-    const finalPayload = {
-      ...data,  
-      ...res,
-    };
-    setData(finalPayload);
-  };
+  const [page, setPage] = useState<number>(0);
 
   const nextPage = () => {
     setPage(page + 1);
@@ -38,7 +28,7 @@ export default function Claim() {
     setPage(page - 1);
   };
 
-  const onClickMenu = (e)=> {
+  const onClickMenu = (e: any)=> {
     setPage(+e.key);
   }
 
@@ -47,7 +37,6 @@ export default function Claim() {
       case 0:
         return (
           <PatientInformation
-            setData={updateData}
             next={nextPage}
             prev={prevPage}
           />
@@ -55,7 +44,6 @@ export default function Claim() {
       case 1:
         return (
           <InsuredAndPayerInfo
-            setData={updateData}
             next={nextPage}
             prev={prevPage}
           />
@@ -63,7 +51,6 @@ export default function Claim() {
       case 2:
         return (
           <HelthServiceReferelInfo
-            setData={updateData}
             next={nextPage}
             prev={prevPage}
           />
@@ -71,14 +58,13 @@ export default function Claim() {
       case 3:
         return (
           <AdditionalClaimInfo
-            setData={updateData}
             next={nextPage}
             prev={prevPage}
           />
         );
       case 4:
         return (
-          <Diagnosis setData={updateData} next={nextPage} prev={prevPage} />
+          <Diagnosis next={nextPage} prev={prevPage} />
         );
     }
   };
@@ -90,7 +76,7 @@ export default function Claim() {
       <Menu
         onClick={onClickMenu}
         style={{ width: 256 ,height: "100vh",position: "fixed"}}
-        defaultSelectedKeys={["1"]}
+        selectedKeys={[page.toString()]}
         mode="inline"
         items={menuItems}
       />

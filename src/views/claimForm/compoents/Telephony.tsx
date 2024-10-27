@@ -17,7 +17,9 @@ export default function Telephony(props: InputProps) {
         phone_number: 0,
     })
   
-    const onhandleChangeArea = (val: number) =>{
+    const onhandleChangeArea = (val: number | null) =>{
+        if (!val) return;
+
         setNumber({
             ...number,
             area_code: val
@@ -25,7 +27,9 @@ export default function Telephony(props: InputProps) {
         {onChange && onChange(number)};
     }
 
-    const onhandleChangeNumber = (val: number) =>{
+    const onhandleChangeNumber = (val: number | null) =>{
+        if (!val) return;
+
         setNumber({
             ...number,
             phone_number: val
@@ -35,10 +39,11 @@ export default function Telephony(props: InputProps) {
 
     return (
         <InputNumber
-            addonBefore={<InputNumber onChange={onhandleChangeArea}  controls={false} maxLength={3} style={{width: 90 }}/>}
+            addonBefore={<InputNumber name='patient/name-address/telephone/area-code' onChange={onhandleChangeArea}  controls={false} maxLength={3} style={{width: 90 }}/>}
             onChange={onhandleChangeNumber}
+            name='patient/name-address/telephone/phone-number'
             controls={false}
-            maxLength={9}
+            maxLength={7}
             style={{width: "100%"}}
         />
     );

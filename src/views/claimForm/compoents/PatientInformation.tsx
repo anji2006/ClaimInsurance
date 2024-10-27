@@ -11,6 +11,7 @@ import {
 } from "antd";
 
 import {
+  BooleanEnum,
   booleanOptions,
   dateFormate,
   relationOptions,
@@ -22,66 +23,74 @@ import RadioGroup from "./RadioGroup";
 import Telephony from "./Telephony";
 import SubTitle from "./SubTitle";
 import dayjs from "dayjs";
+import { useClaimContext } from "../../../store/claimContext";
 
 interface IProps {
   next: Function;
   prev: Function;
-  setData: Function;
 }
 
-export default function PatientInformation({ next, prev, setData }: IProps) {
+export default function PatientInformation({ next, prev }: IProps) {
   const [form] = Form.useForm();
+  const {claimData, setClaimData} = useClaimContext();
 
   const onFinish = (values: any) => {
     
     values["birth_date"] = dayjs(values?.birth_date).format(dateFormate);
     values["signature_date"] = dayjs(values?.signature_date).format(dateFormate);
 
-    console.log(values);
-
-    setData(values);
+    setClaimData(values);
     next();
+  };
+
+  const onValuesChange = (changedValues: any[], values: any[]) => {
+    console.log('+++++++++++++++++++onValuesChange', changedValues, values);
   };
 
   return (
     <Form
       form={form}
       onFinish={onFinish}
+      onValuesChange={onValuesChange}
+      validateTrigger={['onChange', 'onBlur']}
       layout="vertical"
       title="Patient Information"
     >
       <SubTitle title="Patient Information" />
-      <Row gutter={[30, 0]}>
+      <Row gutter={[30, 10]}>
         <Col span={8}>
           <Form.Item
             label="Patient's Account No:"
-            name={["patient", "id_number"]}
-            rules={[{ required: true, message: "Account number Required!" }]}
+            name={['patient', 'account_number']}
+            help='Account Number is Required!'
+            rules={[{ required: true }]}
           >
-            <Input placeholder="Enter Patitent Account Number" maxLength={29} />
+            <InputNumber className="w-full" controls={false} name="physician-or-supplier/patients-account-no" placeholder="Enter Patitent Account Number" maxLength={14} />
           </Form.Item>
         </Col>
         <Col span={8}>
           <Form.Item
-            label="Patient’s Name:"
-            name={["patient", "name"]}
-            rules={[{ required: true, message: "Patient's Name Required!" }]}
+            label="Patient’s Name:" // TO DO
+            name={['patient', 'name']}
+            help="Patient's Name is Required!"
+            rules={[{ required: true }]}
           >
-            <CustomeName title="Patient’s Name" />
+            <CustomeName name="patient/last-name-first-name-middle-initial" title="Patient’s Name" />
           </Form.Item>
         </Col>
         <Col span={8}>
           <Form.Item
             label="Patient’s Birth Date, Sex :"
           >
-            <Row gutter={[15, 0]}>
+            <Row gutter={[10, 0]}>
               <Col>
                 <Form.Item
-                  name={["patient", "date_of_birth"]}
+                  name={['patient', 'date_of_birth']}
                   style={{ marginBottom: 0 }}
-                  rules={[{required: true , message: "Date of Birth Required!"}]}
+                  help='Date of Birth is Required!'
+                  rules={[{required: true}]} // TO DO
                 >
-                  <DatePicker placeholder={dateFormate} format={dateFormate} />
+                  <DatePicker name="patient/date-of-birth" placeholder={dateFormate} format={dateFormate} />
                 </Form.Item>
               </Col>
               <Col>
@@ -90,7 +99,7 @@ export default function PatientInformation({ next, prev, setData }: IProps) {
                   style={{ marginBottom: 0 }}
                   rules={[{required: true, message: "Please Select this field"}]}
                 >
-                  <RadioGroup options={sexOptions} />
+                  <RadioGroup name="patient/gender" options={sexOptions} />
                 </Form.Item>
               </Col>
             </Row>
@@ -100,30 +109,34 @@ export default function PatientInformation({ next, prev, setData }: IProps) {
           <Form.Item
             label="Address(Street) :"
             name={["patient","name_address", "address"]}
-            rules={[{ required: true , message: "Enter Street Address" }]}
+            help="Address(Street) is Required!"
+            rules={[{ required: true }]}
           >
-            <Input placeholder="Address" maxLength={28} />
+            <Input name="patient/name-address/address" placeholder="Enter Address(Street)" maxLength={28} />
           </Form.Item>
         </Col>
         <Col span={8}>
           <Form.Item
             label="City"
             name={["patient","name_address", "city"]}
-            rules={[{ required: true , message: "Enter Patient's City"}]}
+            help="City is Required!"
+            rules={[{ required: true }]}
           >
-            <Input placeholder="City" maxLength={24} />
+            <Input name="patient/name-address/city" placeholder="City" maxLength={24} />
           </Form.Item>
         </Col>
         <Col span={8}>
           <Form.Item
             label="State"
             name={["patient","name_address", "state"]}
-            rules={[{ required: true , message: "Enter Patient's State"}]}
+            help="State is Required!"
+            rules={[{ required: true }]}
           >
             <Select
               placeholder="State"
               optionFilterProp="label"
               showSearch
+              id="patient/name-address/state"
               options={states}
             />
           </Form.Item>
@@ -132,18 +145,14 @@ export default function PatientInformation({ next, prev, setData }: IProps) {
           <Form.Item
             label="ZIP Code"
             name={["patient","name_address", "zip"]}
-            rules={[{ required: true , message: "Enter Patient's ZIP code" }]}
+            help="ZIP Code is Required!"
+            rules={[{ required: true }]}
           >
-            <InputNumber
-              maxLength={12}
-              style={{ width: "100%" }}
-              controls={false}
-            />
+            <Input name="patient/name-address/zip" placeholder="ZIP Code" maxLength={12} />
           </Form.Item>
         </Col>
         <Col span={8}>
-          <Form.Item
-            rules={[{ required: true , message: "Enter Patient's City"}]}
+          <Form.Item // TO DO
             label="Telephony (Including Area Code)"
             name={["patient","name_address", "telephony"]}
           >
@@ -153,43 +162,45 @@ export default function PatientInformation({ next, prev, setData }: IProps) {
         <Col span={8}>
           <Form.Item
             label="Patient Relationship to Insured"
-            name={"relation_to_insured"}
-            name={["patient", "patient_account_no"]}
-            rules={[{ required: true , message: "Select one of the options"}]}
+            name={["patient", "relationship_to_insured"]}
+            help="Patient Relationship to Insured is Required!"
+            rules={[{ required: true }]}
           >
-            <RadioGroup options={relationOptions} />
+            <RadioGroup name="patient/relationship-to-insured" options={relationOptions} />
           </Form.Item>
         </Col>
         <Col span={8}>
           <Form.Item
             label="Is Patient's Condition Related to Employment:"
-            name={["patient_condition", "employment"]}
-            name={["patient", "patient_account_no"]}
-            rules={[{ required: true , message: "Select one of the options"}]}
+            name={["patient", "employment_flag"]}
+            help="Condition Related to Employment is Required!"
+            rules={[{ required: true }]}
           >
-            <RadioGroup options={booleanOptions} />
+            <RadioGroup name="patient/employment-flag" options={booleanOptions} />
           </Form.Item>
         </Col>
         <Col span={8}>
           <Form.Item
             label="Is Patient's Condition Related to Auto Accident:"
-            name={["patient_condition", "auto_accident"]}
-            name={["patient", "patient_account_no"]}
-            rules={[{ required: true, message: "Select one of the options" }]}
+            name={["patient", "auto_accident_flag"]}
+            help="Condition Related to Auto Accident is Required!"
+            rules={[{ required: true }]}
           >
-            <RadioGroup options={booleanOptions} />
+            <RadioGroup name="patient/auto-accident-flag" options={booleanOptions} />
           </Form.Item>
         </Col>
         <Col span={8}>
           <Form.Item
             label="State Where Auto Accident Occurred:"
-            name={["patient_condition", "accident_occurr_at"]}
-            name={["patient", "patient_account_no"]}
-            rules={[{ required: true , message: "Select State from the list"}]}
+            // hidden={claimData?.patient?.auto_accident_state !== BooleanEnum.yes}
+            name={["patient", "auto_accident_state"]}
+            help="Where Auto Accident Occurred is Required!"
+            rules={[{ required: true }]}
           >
             <Select
               placeholder="State"
               optionFilterProp="label"
+              id="patient/auto-accident-state"
               showSearch
               options={states}
             />
@@ -198,31 +209,27 @@ export default function PatientInformation({ next, prev, setData }: IProps) {
         <Col span={8}>
           <Form.Item
             label="Is Patient's Condition Related to Other Accident:"
-            name={["patient_condition", "other_accident"]}
-            name={["patient", "patient_account_no"]}
-            rules={[{ required: true , message: "Select one of the options"}]}
+            name={["patient", "other_accident_flag"]}
+            help="Condition Related to Other Accident is Required!"
+            rules={[{ required: true }]}
           >
-            <RadioGroup options={booleanOptions} />
+            <RadioGroup name="patient/other-accident-flag" options={booleanOptions} />
           </Form.Item>
         </Col>
         <Col span={8}>
           <Form.Item
             label="Patient's or Authorized Person's Signature (Name):"
-            name="signature"
-            name={["patient", "patient_account_no"]}
-            rules={[{ required: true , message: "Enter Signatrue"}]}
+            name={["patient", "signature", "signed_name"]}
           >
-            <Input placeholder="Enter Patient Signature" maxLength={29} />
+            <Input name="patient/signature/signed-name" placeholder="Enter Patient Signature" maxLength={30} />
           </Form.Item>
         </Col>
         <Col span={8}>
           <Form.Item
             label="Patient's or Authorized Person's Signature (Date):"
-            rules={[{ required: true , message: "Select Date of Signature" }]}
-            name={["signature_date"]}
-            name={["patient", "patient_account_no"]}
+            name={["patient", "signature", "signed_date"]}
           >
-            <DatePicker placeholder={dateFormate} format={dateFormate} />
+            <DatePicker name="patient/signature/signed-date" placeholder={dateFormate} format={dateFormate} />
           </Form.Item>
         </Col>
       </Row>

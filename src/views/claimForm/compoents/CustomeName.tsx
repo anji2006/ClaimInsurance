@@ -39,17 +39,15 @@ const CustomeName: React.FC<CustomeNameProps> = ({onChange, title, ...props}) =>
 
   const onSelect = () =>{
     setIsModalOpen(true);
-    console.log("### Selectedddd ");
   }
 
   return (
     <>
         <Input 
             placeholder='Doe Jr, John, J'
-            value={data} 
+            value={data}
             onClick={onSelect}
-            // onBlur={onSelect}
-            // onKeyDown={onSelect}
+            onChange={onSelect}
             {...props} />
         <Modal title={title} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
             <Form

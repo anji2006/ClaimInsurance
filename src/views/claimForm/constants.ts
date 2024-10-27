@@ -1,11 +1,12 @@
 enum HealthCoverageType {
-    Medicare = "Medicare",
-    Medicaid = "Medicaid",
-    TRICARE = "TRICARE",
-    CHAMPVA = "CHAMPVA",
-    GroupHealthPlan = "GroupHealthPlan",
-    BlackLung = "FECA BlackLung",
-    Other = "Other"
+    Medicare = "0",
+    Medicaid = "1",
+    TRICARE = "2",
+    CHAMPVA = "3",
+    GroupHealthPlan = "4",
+    FECA = "5",
+    BlackLung = "6",
+    Other = "7"
 }
 
 export  const healthCoverageOptions = [
@@ -14,27 +15,28 @@ export  const healthCoverageOptions = [
     { label: "TRICARE", value: HealthCoverageType.TRICARE },
     { label: "CHAMPVA", value: HealthCoverageType.CHAMPVA },
     { label: "Group Health Plan", value: HealthCoverageType.GroupHealthPlan },
-    { label: "FECA Black Lung", value: HealthCoverageType.BlackLung },
+    { label: "FECA", value: HealthCoverageType.FECA },
+    { label: "Black Lung", value: HealthCoverageType.BlackLung},
     { label: "Other", value: HealthCoverageType.Other },
 ];
 
 enum Relation {
-    Self = "Self",
-    Child = "Child",
-    Spouse = "Spouse",
-    Other = "Other"
+    Self = '1',
+    Spouse = '2',
+    Child = '3',
+    Other = '4'
 }
 
 export const relationOptions = [
     {label : "Self", value: Relation.Self},
-    {label : "Child", value: Relation.Child},
     {label : "Spouse", value: Relation.Spouse},
+    {label : "Child", value: Relation.Child},
     {label : "Other", value: Relation.Other}
 ]
 
 enum Sex {
-    M = "Male",
-    F = "Female"
+    M = "M",
+    F = "F"
 }
 
 export const sexOptions = [
@@ -42,9 +44,9 @@ export const sexOptions = [
     {label: 'Female', value: Sex.F}
 ]
 
-enum BooleanEnum {
-    yes = "Yes",
-    no = "No"
+export enum BooleanEnum {
+    yes = "Y",
+    no = "N"
 }
 
 export const booleanOptions = [
@@ -110,12 +112,12 @@ export const states = [
 
 export const icdIndicatorOptions = [
     {
-        label: "ICD-10-RM",
-        value: "ICD-10-RM"
+        label: "ICD-10-CM",
+        value: "0"
     },
     {
         label: "ICD-9-RM",
-        value: "ICD-9-RM"
+        value: "9"
     },
 ]
 
