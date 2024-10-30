@@ -48,7 +48,7 @@ export default function Diagnosis({ prev }: IProps) {
       layout="vertical"
     >
       <SubTitle title="Diagnosis or Nature of Illness or Injury" />
-      <Row gutter={[30, 0]}>
+      <Row gutter={[30, 10]}>
         <Col span={8}>
           <Form.Item
             label="ICD Indicator:"
@@ -182,7 +182,7 @@ export default function Diagnosis({ prev }: IProps) {
                   />
                 }
               >
-                <Row gutter={[30, 0]}>
+                <Row gutter={[30, 10]}>
                   <Col span={8}>
                     <Form.Item
                       label="Address(Street) :"

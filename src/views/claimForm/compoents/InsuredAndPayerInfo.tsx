@@ -1,4 +1,4 @@
-import { Button, Col, Flex, Form, Input, InputNumber, Row, Select } from "antd";
+import { Button, Col, Flex, Form, Input, Row, Select } from "antd";
 import { BooleanEnum, booleanOptions, healthCoverageOptions, states } from "../constants";
 import CustomeName from "./CustomeName";
 import RadioGroup from "./RadioGroup";
@@ -10,7 +10,7 @@ import { CustomObject } from "../../../utils/types";
 import { combineTwoObjects } from "../../../utils/functions";
 
 interface IProps {
-  next: Function;
+  next: () => void;
   prev: MouseEventHandler<HTMLElement>;
 }
 
@@ -68,20 +68,6 @@ export default function InsuredAndPayerInfo({ next, prev }: IProps) {
         </Col>
         <Col span={8}>
           <Form.Item
-            label="Insured Name:"
-            name="patient_name"
-            help="Insured Name is Required!"
-            rules={[{ required: true }]}
-          >
-            <CustomeName
-              name="insured/name-address/last-name-first-name-middle-initial"
-              title="Patient’s Name"
-              maxLength={40}
-            />
-          </Form.Item>
-        </Col>
-        <Col span={8}>
-          <Form.Item
             label="Any Other Benefit play:"
             name={["insured", "another_plan_flag"]}
           >
@@ -91,6 +77,62 @@ export default function InsuredAndPayerInfo({ next, prev }: IProps) {
             />
           </Form.Item>
         </Col>
+        {claimData?.insured?.another_plan_flag === BooleanEnum.yes && (
+          <>
+            <Col span={8}>
+              <Form.Item
+                label="Insured Name:"
+                name="patient_name"
+                help="Insured Name is Required!"
+                rules={[{ required: true }]}
+              >
+                <CustomeName
+                  name="insured/name-address/last-name-first-name-middle-initial"
+                  title="Patient’s Name"
+                  maxLength={40}
+                />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item
+                label="Insurance Plan Name Or Program Name:"
+                name={["insured", "other_insured",  "plan_name"]}
+                help="Plan Name is Required!"
+                rules={[{ required: true }]}
+              >
+                <Input
+                  name="insured/other-insured/insurance-plan-name-or-program-name"
+                  placeholder="Enter Plan Name"
+                  maxLength={29}
+                />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item
+                label="Other Claim ID (Qualifier):"
+                name={["insured", "other_claim_id",  "qualifier"]}
+              >
+                <Input
+                  name="insured/other-claim-id/qualifier"
+                  placeholder="Enter Claim ID"
+                  maxLength={2}
+                />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item
+                label="Other Claim ID (Identifier):"
+                name={["insured", "other_claim_id",  "identifier"]}
+              >
+                <Input
+                  name="insured/other-claim-id/identifier"
+                  placeholder="Enter Claim ID"
+                  maxLength={29}
+                />
+              </Form.Item>
+            </Col>
+          </>
+        )}
         {claimData?.patient?.employment_flag === BooleanEnum.yes && (
           <>
             <Col span={8}>

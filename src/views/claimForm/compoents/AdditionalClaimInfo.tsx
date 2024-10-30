@@ -46,7 +46,7 @@ export default function AdditionalClaimInfo({ next, prev }: IProps) {
       layout="vertical"
     >
       <SubTitle title="Additional Claim Information" />
-      <Row gutter={[30, 0]}>
+      <Row gutter={[30, 10]}>
         <Col span={8}>
           <Form.Item
             label="WCB Authorization Number:"
@@ -125,40 +125,44 @@ export default function AdditionalClaimInfo({ next, prev }: IProps) {
             />
           </Form.Item>
         </Col>
-        <Col span={8}>
-          <Form.Item
-            label="Unable to Work From Date:"
-            name={[
-              "patient",
-              "dates_patient_unable_to_work_in_current_operation",
-              "from_date",
-            ]}
-          >
-            <DatePicker
-              className="w-full"
-              name="patient/dates-patient-unable-to-work-in-current-operation/from-date"
-              placeholder={dateFormate}
-              format={dateFormate}
-            />
-          </Form.Item>
-        </Col>
-        <Col span={8}>
-          <Form.Item
-            label="Unable to Work To Date:"
-            name={[
-              "patient",
-              "dates_patient_unable_to_work_in_current_operation",
-              "to_date",
-            ]}
-          >
-            <DatePicker
-              className="w-full"
-              name="patient/dates-patient-unable-to-work-in-current-operation/to-date"
-              placeholder={dateFormate}
-              format={dateFormate}
-            />
-          </Form.Item>
-        </Col>
+        {claimData?.patient?.employment_flag === BooleanEnum.yes && (
+          <>
+            <Col span={8}>
+              <Form.Item
+                label="Unable to Work From Date:"
+                name={[
+                  "patient",
+                  "dates_patient_unable_to_work_in_current_operation",
+                  "from_date",
+                ]}
+              >
+                <DatePicker
+                  className="w-full"
+                  name="patient/dates-patient-unable-to-work-in-current-operation/from-date"
+                  placeholder={dateFormate}
+                  format={dateFormate}
+                />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item
+                label="Unable to Work To Date:"
+                name={[
+                  "patient",
+                  "dates_patient_unable_to_work_in_current_operation",
+                  "to_date",
+                ]}
+              >
+                <DatePicker
+                  className="w-full"
+                  name="patient/dates-patient-unable-to-work-in-current-operation/to-date"
+                  placeholder={dateFormate}
+                  format={dateFormate}
+                />
+              </Form.Item>
+            </Col>
+          </>
+        )}
         <Col span={8}>
           <Form.Item
             label="Hospitalization From Date:"
@@ -201,20 +205,12 @@ export default function AdditionalClaimInfo({ next, prev }: IProps) {
             <RadioGroup name="physician-or-supplier/outside-lab-flag" options={booleanOptions} />
           </Form.Item>
         </Col>
-        <Col span={8}>
-          <Form.Item
-            label="Outside Lab Charges:"
-            name={["physician_or_supplier", "outside_lab_charges"]}
-          >
-            <Input name="physician-or-supplier/outside-lab-flag/charges" maxLength={8} />
-          </Form.Item>
-        </Col>
         {claimData?.physician_or_supplier?.outside_lab_flag ===
           BooleanEnum.yes && (
           <Col span={8}>
             <Form.Item
               label="Outside Lab Charges:"
-              name={["physician_or_supplier", "outside_lab_flag", "charges"]}
+              name={["physician_or_supplier", "outside_lab_charges"]}
             >
               <Input
                 name="physician-or-supplier/outside-lab-flag/charges"

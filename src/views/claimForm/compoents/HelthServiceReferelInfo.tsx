@@ -148,26 +148,30 @@ export default function HelthServiceReferelInfo({ next, prev }: IProps) {
             <Input name="physician-or-supplier/referring-provider-or-other-source/qualifier" maxLength={2} />
           </Form.Item>
         </Col>
-        <Col span={8}>
-          <Form.Item
-            label="Referring Provider Name:"
-            name={["physician_or_supplier", "referring_provider_or_other_source", "name"]}
-            help="Name is Required!"
-            rules={[{ required: true }]}
-          >
-            <Input name="physician-or-supplier/referring-provider-or-other-source/name" maxLength={24}/>
-          </Form.Item>
-        </Col>
-        <Col span={8}>
-          <Form.Item
-            label="Referring Provider NPI Number:"
-            name={["physician_or_supplier", "referring_provider_or_other_source", "npi_number"]}
-            help="NPI Number is Required!"
-            rules={[{ required: true }]}
-          >
-            <InputNumber name="physician-or-supplier/referring-provider-or-other-source/npi-number" className="w-full" controls={false} maxLength={10} />
-          </Form.Item>
-        </Col>
+        {['DQ', 'DN', 'DK'].includes(claimData?.physician_or_supplier?.referring_provider_or_other_source?.qualifier) && (
+          <>
+            <Col span={8}>
+              <Form.Item
+                label="Referring Provider Name:"
+                name={["physician_or_supplier", "referring_provider_or_other_source", "name"]}
+                help="Name is Required!"
+                rules={[{ required: true }]}
+              >
+                <Input name="physician-or-supplier/referring-provider-or-other-source/name" maxLength={24}/>
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item
+                label="Referring Provider NPI Number:"
+                name={["physician_or_supplier", "referring_provider_or_other_source", "npi_number"]}
+                help="NPI Number is Required!"
+                rules={[{ required: true }]}
+              >
+                <InputNumber name="physician-or-supplier/referring-provider-or-other-source/npi-number" className="w-full" controls={false} maxLength={10} />
+              </Form.Item>
+            </Col>
+          </>
+        )}
         <Col span={8}>
           <Form.Item
             label="Referring Provider Other ID Qualifier:"

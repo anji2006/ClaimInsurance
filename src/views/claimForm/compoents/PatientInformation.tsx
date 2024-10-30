@@ -11,6 +11,7 @@ import {
 } from "antd";
 
 import {
+  BooleanEnum,
   booleanOptions,
   dateFormate,
   relationOptions,
