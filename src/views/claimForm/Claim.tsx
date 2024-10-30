@@ -63,7 +63,7 @@ export default function Claim() {
         );
       case 4:
         return (
-          <Diagnosis next={nextPage} prev={prevPage} />
+          <Diagnosis prev={prevPage} />
         );
     }
   };

@@ -13,11 +13,11 @@ import RadioGroup from "./RadioGroup";
 import SubTitle from "./SubTitle";
 import { useClaimContext } from "../../../store/claimContext";
 import { MouseEventHandler } from "react";
-import { combineTwoObjects } from "../../../utils/functions";
 import { CustomObject } from "../../../utils/types";
+import { combineTwoObjects } from "../../../utils/functions";
 
 interface IProps {
-  next: Function;
+  next: () => void;
   prev: MouseEventHandler<HTMLElement>;
 }
 
@@ -25,9 +25,9 @@ export default function AdditionalClaimInfo({ next, prev }: IProps) {
   const [form] = Form.useForm();
   const { claimData, setClaimData } = useClaimContext();
 
-  const onFinish = (values: any) => {
-    console.log(values);
-    setClaimData(values);
+  const onFinish = (values: CustomObject) => {
+    const updatedData = combineTwoObjects(claimData, values);
+    setClaimData(updatedData);
     next();
   };
 
@@ -36,15 +36,14 @@ export default function AdditionalClaimInfo({ next, prev }: IProps) {
     setClaimData(updatedData);
   };
 
-  console.log("======= Addtional", claimData);
-
   return (
     <Form
       form={form}
       onFinish={onFinish}
-      layout="vertical"
-      onValuesChange={onValuesChange}
       initialValues={claimData}
+      onValuesChange={onValuesChange}
+      validateTrigger={['onChange', 'onBlur']}
+      layout="vertical"
     >
       <SubTitle title="Additional Claim Information" />
       <Row gutter={[30, 0]}>
@@ -199,10 +198,15 @@ export default function AdditionalClaimInfo({ next, prev }: IProps) {
             label="Outside Lab:"
             name={["physician_or_supplier", "outside_lab_flag"]}
           >
-            <RadioGroup
-              name="physician-or-supplier/outside-lab-flag"
-              options={booleanOptions}
-            />
+            <RadioGroup name="physician-or-supplier/outside-lab-flag" options={booleanOptions} />
+          </Form.Item>
+        </Col>
+        <Col span={8}>
+          <Form.Item
+            label="Outside Lab Charges:"
+            name={["physician_or_supplier", "outside_lab_charges"]}
+          >
+            <Input name="physician-or-supplier/outside-lab-flag/charges" maxLength={8} />
           </Form.Item>
         </Col>
         {claimData?.physician_or_supplier?.outside_lab_flag ===

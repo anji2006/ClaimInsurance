@@ -6,8 +6,12 @@ type IState = {
     setClaimData: React.Dispatch<React.SetStateAction<CustomObject>>
 }
 
+export const defaultData = {
+  supplemental_information_items: [{}]
+}
+
 const ClaimContext = createContext<IState>({
-    claimData: {},
+    claimData: defaultData,
     setClaimData: () => {}
 });
 

@@ -18,7 +18,9 @@ export default function InsuredAndPayerInfo({ next, prev }: IProps) {
   const [form] = Form.useForm();
   const { claimData, setClaimData } = useClaimContext();
 
-  const onFinish = () => {
+  const onFinish = (values: CustomObject) => {
+    const updatedData = combineTwoObjects(claimData, values);
+    setClaimData(updatedData);
     next();
   };
 

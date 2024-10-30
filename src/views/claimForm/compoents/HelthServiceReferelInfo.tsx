@@ -4,31 +4,41 @@ import Telephony from "./Telephony";
 import SubTitle from "./SubTitle";
 import { useClaimContext } from "../../../store/claimContext";
 import { MouseEventHandler } from "react";
+import { CustomObject } from "../../../utils/types";
+import { combineTwoObjects } from "../../../utils/functions";
 
 interface IProps {
-  next: Function;
+  next: () => void;
   prev: MouseEventHandler<HTMLElement>;
 }
 
-export default function HelthServiceReferelInfo({ next,prev }: IProps) {
+export default function HelthServiceReferelInfo({ next, prev }: IProps) {
   const [form] = Form.useForm();
-  const {setClaimData} = useClaimContext();
+  const {claimData, setClaimData} = useClaimContext();
 
-  const onFinish = (values: any) => {
-    console.log(values);
-    setClaimData(values);
+  const onFinish = (values: CustomObject) => {
+    const updatedData = combineTwoObjects(claimData, values);
+    setClaimData(updatedData);
     next();
+  };
+
+  const onValuesChange = (changedValues: CustomObject) => {
+    const updatedData = combineTwoObjects(claimData, changedValues);
+    setClaimData(updatedData);
   };
 
   return (
     <Form
       form={form}
       onFinish={onFinish}
+      initialValues={claimData}
+      onValuesChange={onValuesChange}
+      validateTrigger={['onChange', 'onBlur']}
       layout="vertical"
       title="Insured Information"
     >
       <SubTitle title="Health Care Provider Information" />
-      <Row gutter={[30, 0]}>
+      <Row gutter={[30, 10]}>
         <Col span={8}>
           <Form.Item // TO DO
             label="Billing Provider Telephony (Including Area Code)"
@@ -123,8 +133,11 @@ export default function HelthServiceReferelInfo({ next,prev }: IProps) {
         </Col>
       </Row>
 
+
+  
+
       <SubTitle title="Referring Provider Information" />
-      <Row gutter={[30, 0]}>
+      <Row gutter={[30, 10]}>
         <Col span={8}>
           <Form.Item
             label="Referring Provider Qualifier:"
@@ -174,7 +187,7 @@ export default function HelthServiceReferelInfo({ next,prev }: IProps) {
       </Row>
 
       <SubTitle title="Service Facility Information" />
-      <Row gutter={[30, 0]}>
+      <Row gutter={[30, 10]}>
         <Col span={8}>
           <Form.Item
             label="Service Facility Name:"
@@ -244,7 +257,7 @@ export default function HelthServiceReferelInfo({ next,prev }: IProps) {
         <Col span={8}>
           <Form.Item
             label="Service Facility Other ID Qualifier:"
-            name={["physician_or_supplier", "service_facility", "other_id_number", "qualifier"]}
+            name={["physician_or_supplier", "service_facility", "qualifier"]}
           >
             <Input name="physician-or-supplier/service-facility/other-id-number/qualifier" maxLength={14} />
           </Form.Item>
