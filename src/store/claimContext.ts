@@ -1,8 +1,5 @@
 import { createContext, useContext } from "react";
-
-export type CustomObject = {
-  [k: string]: any
-}
+import { CustomObject } from "../utils/types";
 
 type IState = {
     claimData: CustomObject;

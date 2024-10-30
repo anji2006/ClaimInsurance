@@ -38,7 +38,6 @@ export default function Claim() {
         return (
           <PatientInformation
             next={nextPage}
-            prev={prevPage}
           />
         );
       case 1:
