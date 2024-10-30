@@ -11,7 +11,6 @@ import {
 } from "antd";
 
 import {
-  BooleanEnum,
   booleanOptions,
   dateFormate,
   relationOptions,
@@ -22,35 +21,32 @@ import CustomeName from "./CustomeName";
 import RadioGroup from "./RadioGroup";
 import Telephony from "./Telephony";
 import SubTitle from "./SubTitle";
-import dayjs from "dayjs";
 import { useClaimContext } from "../../../store/claimContext";
+import { CustomObject } from "../../../utils/types";
+import { combineTwoObjects } from "../../../utils/functions";
 
 interface IProps {
-  next: Function;
-  prev: Function;
+  next: () => void;
 }
 
-export default function PatientInformation({ next, prev }: IProps) {
+export default function PatientInformation({ next }: IProps) {
   const [form] = Form.useForm();
   const {claimData, setClaimData} = useClaimContext();
 
-  const onFinish = (values: any) => {
-    
-    values["birth_date"] = dayjs(values?.birth_date).format(dateFormate);
-    values["signature_date"] = dayjs(values?.signature_date).format(dateFormate);
-
-    setClaimData(values);
+  const onFinish = () => {
     next();
   };
 
-  const onValuesChange = (changedValues: any[], values: any[]) => {
-    console.log('+++++++++++++++++++onValuesChange', changedValues, values);
+  const onValuesChange = (changedValues: CustomObject) => {
+    const updatedData = combineTwoObjects(claimData, changedValues);
+    setClaimData(updatedData);
   };
 
   return (
     <Form
       form={form}
       onFinish={onFinish}
+      initialValues={claimData}
       onValuesChange={onValuesChange}
       validateTrigger={['onChange', 'onBlur']}
       layout="vertical"
@@ -61,7 +57,7 @@ export default function PatientInformation({ next, prev }: IProps) {
         <Col span={8}>
           <Form.Item
             label="Patient's Account No:"
-            name={['patient', 'account_number']}
+            name={['patient', 'patients_account_no']}
             help='Account Number is Required!'
             rules={[{ required: true }]}
           >
@@ -71,7 +67,7 @@ export default function PatientInformation({ next, prev }: IProps) {
         <Col span={8}>
           <Form.Item
             label="Patient’s Name:" // TO DO
-            name={['patient', 'name']}
+            name={['patient', 'last_name_first_name_middle_initial']}
             help="Patient's Name is Required!"
             rules={[{ required: true }]}
           >

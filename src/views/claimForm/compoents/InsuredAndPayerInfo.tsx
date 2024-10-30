@@ -6,6 +6,8 @@ import Telephony from "./Telephony";
 import SubTitle from "./SubTitle";
 import { useClaimContext } from "../../../store/claimContext";
 import { MouseEventHandler } from "react";
+import { CustomObject } from "../../../utils/types";
+import { combineTwoObjects } from "../../../utils/functions";
 
 interface IProps {
   next: Function;
@@ -14,18 +16,24 @@ interface IProps {
 
 export default function InsuredAndPayerInfo({ next, prev }: IProps) {
   const [form] = Form.useForm();
-  const {setClaimData} = useClaimContext();
+  const {claimData, setClaimData} = useClaimContext();
 
-  const onFinish = (values: any) => {
-    console.log(values);
-    setClaimData(values);
+  const onFinish = () => {
     next();
+  };
+
+  const onValuesChange = (changedValues: CustomObject) => {
+    const updatedData = combineTwoObjects(claimData, changedValues);
+    setClaimData(updatedData);
   };
 
   return (
     <Form
       form={form}
       onFinish={onFinish}
+      initialValues={claimData}
+      onValuesChange={onValuesChange}
+      validateTrigger={['onChange', 'onBlur']}
       layout="vertical"
       title="Insured Information"
     >
@@ -136,6 +144,9 @@ export default function InsuredAndPayerInfo({ next, prev }: IProps) {
           </Form.Item>
         </Col>
       </Row>
+
+
+
       <SubTitle title="Payer Information" />
       <Row gutter={[30, 15]}>
         <Col span={8}>
