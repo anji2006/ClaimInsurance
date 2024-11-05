@@ -69,3 +69,15 @@ button:focus-visible {
 .w-full {
   width: 100%
 }
+
+.gap-10 {
+  gap: 10px
+}
+
+.flex {
+  display: flex;
+}
+
+.align-center {
+  align-items: center;
+}

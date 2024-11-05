@@ -22,11 +22,11 @@ export function combineTwoObjects(obj1: CustomObject, obj2: CustomObject) {
 }
 
 
-export function downloadObjectAsJson(exportObj: any, fileName: string) {
+export function downloadObject(exportObj: any, fileName: string, format: string = 'txt') {
   const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj, null, 2));
   const downloadAnchorNode = document.createElement('a');
   downloadAnchorNode.setAttribute("href", dataStr);
-  downloadAnchorNode.setAttribute("download", fileName + ".json");
+  downloadAnchorNode.setAttribute("download", fileName + "." + format);
   document.body.appendChild(downloadAnchorNode); // Required for Firefox
   downloadAnchorNode.click();
   downloadAnchorNode.remove();

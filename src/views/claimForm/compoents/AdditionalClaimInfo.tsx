@@ -5,7 +5,6 @@ import {
   Flex,
   Form,
   Input,
-  InputNumber,
   Row,
 } from "antd";
 import { BooleanEnum, booleanOptions, dateFormate } from "../constants";

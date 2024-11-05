@@ -14,23 +14,27 @@ import { IoCloseOutline } from "react-icons/io5";
 import { booleanOptions, dateFormate, icdIndicatorOptions } from "../constants";
 import RadioGroup from "./RadioGroup";
 import SubTitle from "./SubTitle";
-import dayjs from "dayjs";
 import { useClaimContext } from "../../../store/claimContext";
 import { CustomObject } from "../../../utils/types";
-import { combineTwoObjects, downloadObjectAsJson } from "../../../utils/functions";
+import { combineTwoObjects } from "../../../utils/functions";
+import DownloadOption from "./DownloadOption";
+import { useState } from "react";
 
 interface IProps {
   prev: () => void;
+  onReset: () => void
 }
 
-export default function Diagnosis({ prev }: IProps) {
+export default function Diagnosis({ prev, onReset }: IProps) {
+  const [openDownloadOption, setOpenDownloadOption] = useState(false);
+
   const [form] = Form.useForm();
   const {claimData, setClaimData} = useClaimContext();
 
   const onFinish = (values: CustomObject) => {
     const updatedData = combineTwoObjects(claimData, values);
     setClaimData(updatedData);
-    downloadObjectAsJson(updatedData, "claim-data");
+    setOpenDownloadOption(true);
   };
 
   const onValuesChange = (_: CustomObject, values: CustomObject) => {
@@ -364,6 +368,8 @@ export default function Diagnosis({ prev }: IProps) {
           </Button>
         </Form.Item>
       </Flex>
+      
+      {openDownloadOption && <DownloadOption onReset={onReset} />}
     </Form>
   );
 }

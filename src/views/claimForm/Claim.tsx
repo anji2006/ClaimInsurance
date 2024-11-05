@@ -7,6 +7,7 @@ import HelthServiceReferelInfo from "./compoents/HelthServiceReferelInfo";
 import Diagnosis from "./compoents/Diagnosis";
 import SubTitle from "./compoents/SubTitle";
 import AdditionalClaimInfo from "./compoents/AdditionalClaimInfo";
+import { defaultData, useClaimContext } from "../../store/claimContext";
 
 const menuItems = [
   { key: "0", label: "Patient Information" },
@@ -19,6 +20,12 @@ const menuItems = [
 
 export default function Claim() {
   const [page, setPage] = useState<number>(0);
+  const {setClaimData} = useClaimContext();
+
+  const handleReset = () => {
+    setPage(0);
+    setClaimData(defaultData);
+  };
 
   const nextPage = () => {
     setPage(page + 1);
@@ -63,7 +70,7 @@ export default function Claim() {
         );
       case 4:
         return (
-          <Diagnosis prev={prevPage} />
+          <Diagnosis onReset={handleReset} prev={prevPage} />
         );
     }
   };

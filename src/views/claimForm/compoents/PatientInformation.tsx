@@ -87,34 +87,30 @@ export default function PatientInformation({ next }: IProps) {
           </Form.Item>
         </Col>
         <Col span={8}>
-          <Form.Item label="Patient’s Birth Date, Sex :">
-            <Row gutter={[10, 0]}>
-              <Col>
-                <Form.Item
-                  name={["patient", "date_of_birth"]}
-                  style={{ marginBottom: 0 }}
-                  help="Must be <= Accident Date"
-                  rules={[{ required: true }]} // TO DO
-                >
-                  <DatePicker
-                    name="patient/date-of-birth"
-                    placeholder={dateFormate}
-                    format={dateFormate}
-                  />
-                </Form.Item>
-              </Col>
-              <Col>
-                <Form.Item
-                  name={["patient", "gender"]}
-                  style={{ marginBottom: 0 }}
-                  rules={[
-                    { required: true, message: "Please Select this field" },
-                  ]}
-                >
-                  <RadioGroup name="patient/gender" options={sexOptions} />
-                </Form.Item>
-              </Col>
-            </Row>
+          <Form.Item
+            label="Patient's Birth Date:"
+            name={["patient", "date_of_birth"]}
+            style={{ marginBottom: 0 }}
+            help="Must be <= Accident Date"
+            rules={[{ required: true }]}
+          >
+            <DatePicker
+              className="w-full"
+              name="patient/date-of-birth"
+              placeholder={dateFormate}
+              format={dateFormate}
+            />
+          </Form.Item>
+        </Col>
+        <Col span={8}>
+          <Form.Item
+            label="Patient's Sex:"
+            name={["patient", "gender"]}
+            style={{ marginBottom: 0 }}
+            help="Please Select this field"
+            rules={[{ required: true }]}
+          >
+            <RadioGroup name="patient/gender" options={sexOptions} />
           </Form.Item>
         </Col>
         <Col span={8}>
@@ -272,6 +268,7 @@ export default function PatientInformation({ next }: IProps) {
             name={["patient", "signature", "signed_date"]}
           >
             <DatePicker
+              className="w-full"
               name="patient/signature/signed-date"
               placeholder={dateFormate}
               format={dateFormate}
