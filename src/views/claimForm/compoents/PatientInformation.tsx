@@ -172,11 +172,35 @@ export default function PatientInformation({ next }: IProps) {
           </Form.Item>
         </Col>
         <Col span={8}>
-          <Form.Item // TO DO
-            label="Telephony (Including Area Code)"
-            name={["patient", "name_address", "telephony"]}
+          <Form.Item
+            label="Telephony Area Code:"
+            name={["patient", "name_address", "telephony", "area_code"]}
+            help="Area Code is Required!"
+            rules={[{ required: true }]}
           >
-            <Telephony />
+            <InputNumber
+              className="w-full"
+              controls={false}
+              name="patient/name-address/telephony/area-code"
+              placeholder="Enter Area Code"
+              maxLength={3}
+            />
+          </Form.Item>
+        </Col>
+        <Col span={8}>
+        <Form.Item
+            label="Phone Number:"
+            name={["patient", "name_address", "telephony", "phone_number"]}
+            help="Phone Number is Required!"
+            rules={[{ required: true }]}
+          >
+            <InputNumber
+              className="w-full"
+              controls={false}
+              name="patient/name-address/telephony/phone-number"
+              placeholder="Enter Phone Number"
+              maxLength={7}
+            />
           </Form.Item>
         </Col>
         <Col span={8}>

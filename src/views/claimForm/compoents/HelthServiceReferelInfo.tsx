@@ -40,12 +40,31 @@ export default function HelthServiceReferelInfo({ next, prev }: IProps) {
       <SubTitle title="Health Care Provider Information" />
       <Row gutter={[30, 10]}>
         <Col span={8}>
-          <Form.Item // TO DO
-            label="Billing Provider Telephony (Including Area Code)"
-            name={["billing", "telephony"]}
-            rules={[{ required: true , message: "Enter Telephony number"}]}
+          <Form.Item
+            label="Telephony Area Code:"
+            name={["physician_or_supplier", "billing_provider", "telephony", "area_code"]}
           >
-            <Telephony />
+            <InputNumber
+              className="w-full"
+              controls={false}
+              name="physician-or-supplier/billing-provider/telephone/area-code"
+              placeholder="Enter Area Code"
+              maxLength={3}
+            />
+          </Form.Item>
+        </Col>
+        <Col span={8}>
+        <Form.Item
+            label="Phone Number:"
+            name={["physician_or_supplier", "billing_provider", "telephony", "phone_number"]}
+          >
+            <InputNumber
+              className="w-full"
+              controls={false}
+              name="physician-or-supplier/billing-provider/telephone/phone-number"
+              placeholder="Enter Phone Number"
+              maxLength={7}
+            />
           </Form.Item>
         </Col>
         <Col span={8}>

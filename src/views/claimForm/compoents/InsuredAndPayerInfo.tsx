@@ -1,4 +1,4 @@
-import { Button, Col, Flex, Form, Input, Row, Select } from "antd";
+import { Button, Col, Flex, Form, Input, InputNumber, Row, Select } from "antd";
 import { BooleanEnum, booleanOptions, healthCoverageOptions, states } from "../constants";
 import CustomeName from "./CustomeName";
 import RadioGroup from "./RadioGroup";
@@ -194,12 +194,31 @@ export default function InsuredAndPayerInfo({ next, prev }: IProps) {
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item // TO DO
-                label="Insured Telephony (Including Area Code):"
-                name={"telephony"}
-                rules={[{ required: true, message: "Enter Telephony Number" }]}
+              <Form.Item
+                label="Telephony Area Code:"
+                name={["insured", "name_address", "telephony", "area_code"]}
               >
-                <Telephony />
+                <InputNumber
+                  className="w-full"
+                  controls={false}
+                  name="insured/name-address/telephone/area-code"
+                  placeholder="Enter Area Code"
+                  maxLength={3}
+                />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+            <Form.Item
+                label="Phone Number:"
+                name={["insured", "name_address", "telephony", "phone_number"]}
+              >
+                <InputNumber
+                  className="w-full"
+                  controls={false}
+                  name="insured/name-address/telephone/area-code"
+                  placeholder="Enter Phone Number"
+                  maxLength={7}
+                />
               </Form.Item>
             </Col>
           </>
