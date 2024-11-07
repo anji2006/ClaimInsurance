@@ -1,7 +1,7 @@
 import { Modal } from "antd";
 import { FaCircleExclamation } from "react-icons/fa6";
 import { useClaimContext } from "../../../store/claimContext";
-import { downloadObject } from "../../../utils/functions";
+import { downloadObject, formatData } from "../../../utils/functions";
 
 interface IProps {
   onReset: () => void
@@ -13,7 +13,8 @@ function DownloadOption({onReset}: IProps) {
   const {claimData} = useClaimContext();
 
   const onClickDownload = (type: 'txt' | 'json') => {
-    downloadObject(claimData, "claim-data", type);
+    const formattedData = formatData(claimData);
+    downloadObject(formattedData, "claim-data", type);
     modal.success({
       title: 'Success',
       content: (

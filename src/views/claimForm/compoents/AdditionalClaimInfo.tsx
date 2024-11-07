@@ -125,73 +125,33 @@ export default function AdditionalClaimInfo({ next, prev }: IProps) {
           </Form.Item>
         </Col>
         {claimData?.patient?.employment_flag === BooleanEnum.yes && (
-          <>
-            <Col span={8}>
-              <Form.Item
-                label="Unable to Work From Date:"
-                name={[
-                  "patient",
-                  "dates_patient_unable_to_work_in_current_operation",
-                  "from_date",
-                ]}
-              >
-                <DatePicker
-                  className="w-full"
-                  name="patient/dates-patient-unable-to-work-in-current-operation/from-date"
-                  placeholder={dateFormate}
-                  format={dateFormate}
-                />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item
-                label="Unable to Work To Date:"
-                name={[
-                  "patient",
-                  "dates_patient_unable_to_work_in_current_operation",
-                  "to_date",
-                ]}
-              >
-                <DatePicker
-                  className="w-full"
-                  name="patient/dates-patient-unable-to-work-in-current-operation/to-date"
-                  placeholder={dateFormate}
-                  format={dateFormate}
-                />
-              </Form.Item>
-            </Col>
-          </>
+          <Col span={8}>
+            <Form.Item
+              label="Unable to Work Dates(From - TO):"
+              name={[
+                "patient",
+                "dates_patient_unable_to_work_in_current_operation",
+              ]}
+            >
+              <DatePicker.RangePicker
+                style={{ width: "100%" }}
+                placeholder={[dateFormate, dateFormate]}
+                format={dateFormate}
+              />
+            </Form.Item>
+          </Col>
         )}
         <Col span={8}>
           <Form.Item
-            label="Hospitalization From Date:"
+            label="Hospitalization Dates(From - TO):"
             name={[
               "physician_or_supplier",
               "hospitalization_dates_related_to_current_services",
-              "from_date",
             ]}
           >
-            <DatePicker
-              className="w-full"
-              name="physician-or-supplier/hospitalization-dates-related-to-current-services/from-date"
-              placeholder={dateFormate}
-              format={dateFormate}
-            />
-          </Form.Item>
-        </Col>
-        <Col span={8}>
-          <Form.Item
-            label="Hospitalization To Date:"
-            name={[
-              "physician_or_supplier",
-              "hospitalization_dates_related_to_current_services",
-              "to_date",
-            ]}
-          >
-            <DatePicker
-              className="w-full"
-              name="physician-or-supplier/hospitalization-dates-related-to-current-services/to-date"
-              placeholder={dateFormate}
+            <DatePicker.RangePicker
+              style={{ width: "100%" }}
+              placeholder={[dateFormate, dateFormate]}
               format={dateFormate}
             />
           </Form.Item>

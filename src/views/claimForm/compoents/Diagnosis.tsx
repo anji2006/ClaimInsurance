@@ -37,8 +37,17 @@ export default function Diagnosis({ prev, onReset }: IProps) {
     setOpenDownloadOption(true);
   };
 
-  const onValuesChange = (_: CustomObject, values: CustomObject) => {
-    const updatedData = combineTwoObjects(claimData, values);
+  const onValuesChange = (changedValues: CustomObject, values: CustomObject) => {
+    if (changedValues?.supplemental_information_items) {
+      const updatedData = {
+        ...claimData,
+        supplemental_information_items: values?.supplemental_information_items
+      }
+      setClaimData(updatedData);
+      return;
+    }
+
+    const updatedData = combineTwoObjects(claimData, changedValues);
     setClaimData(updatedData);
   };
 
@@ -197,22 +206,19 @@ export default function Diagnosis({ prev, onReset }: IProps) {
                   </Col>
                   <Col span={8}>
                     <Form.Item
-                      label="Date(s) of Service From:"
-                      name={[field.name, "from_date"]}
-                      help="From Date is Required!"
+                      label="Dates of Service(From - TO):"
+                      name={[
+                        field.name,
+                        "service_dates",
+                      ]}
+                      help="From Date and To Date are Required!"
                       rules={[{ required: true }]}
                     >
-                      <DatePicker className="w-full" name="physician-or-supplier/procedure-service-or-supply/from-date" placeholder={dateFormate} format={dateFormate} />
-                    </Form.Item>
-                  </Col>
-                  <Col span={8}>
-                    <Form.Item
-                      label="Date(s) of Service To:"
-                      name={[field.name, "to_date"]}
-                      help="To Date is Required!"
-                      rules={[{ required: true }]}
-                    >
-                      <DatePicker className="w-full" name="physician-or-supplier/procedure-service-or-supply/to-date" placeholder={dateFormate} format={dateFormate} />
+                      <DatePicker.RangePicker
+                        style={{ width: "100%" }}
+                        placeholder={[dateFormate, dateFormate]}
+                        format={dateFormate}
+                      />
                     </Form.Item>
                   </Col>
                   <Col span={8}>

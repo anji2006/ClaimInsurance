@@ -11,7 +11,7 @@ import { defaultData, useClaimContext } from "../../store/claimContext";
 
 const menuItems = [
   { key: "0", label: "Patient Information" },
-  { key: "1", label: "Insured Information & Payer Information" },
+  { key: "1", label: "Insured & Payer Information" },
   { key: "2", label: "Health Care & Referring Provider And Service Facility" },
   { key: "3", label: "Additional Claim Information" },
   { key: "4", label: "Diagnosis" },

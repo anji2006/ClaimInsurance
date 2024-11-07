@@ -54,7 +54,9 @@ export const booleanOptions = [
     {label: "No", value: BooleanEnum.no},
 ]
 
-export const dateFormate = "MM-DD-YYYY"
+export const dateFormate = "DD-MM-YYYY";
+
+export const desiredDateFormate = "YYYYMMDD";
 
 export const states = [
     { label: "Alabama", value: "AL" },

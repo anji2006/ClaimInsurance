@@ -20,7 +20,6 @@ import {
 } from "../constants";
 import CustomeName from "./CustomeName";
 import RadioGroup from "./RadioGroup";
-import Telephony from "./Telephony";
 import SubTitle from "./SubTitle";
 import { useClaimContext } from "../../../store/claimContext";
 import { CustomObject } from "../../../utils/types";
