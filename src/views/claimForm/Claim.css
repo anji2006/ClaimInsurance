@@ -16,12 +16,6 @@
     border: 2px solid green;
 }
 
-.main {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-}
-
 .ant-form-item-label {
     padding: unset !important;
 }

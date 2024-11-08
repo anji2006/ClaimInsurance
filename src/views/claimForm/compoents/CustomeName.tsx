@@ -12,7 +12,7 @@ interface Name {
 }
 
 
-const CustomeName: React.FC<CustomeNameProps> = ({onChange, title, name}) => {
+const CustomeName: React.FC<CustomeNameProps> = ({onChange, title, name, ...props}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [data, setData] = useState("");
 
@@ -48,7 +48,8 @@ const CustomeName: React.FC<CustomeNameProps> = ({onChange, title, name}) => {
             value={data}
             onClick={onSelect}
             onChange={onSelect}
-            name={name} />
+            name={name}
+            {...props} />
         <Modal title={title} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
             <Form
                 layout='vertical'

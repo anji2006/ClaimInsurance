@@ -366,6 +366,9 @@ export default function Diagnosis({ prev, onReset }: IProps) {
       </Form.List>
       <Flex align="center" justify="flex-end">
         <Form.Item>
+          <Button type="primary" style={{marginRight: 10}} onClick={prev}>
+            Back
+          </Button>
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
