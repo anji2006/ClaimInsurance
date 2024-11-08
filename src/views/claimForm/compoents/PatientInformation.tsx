@@ -54,8 +54,8 @@ export default function PatientInformation({ next }: IProps) {
       layout="vertical"
       title="Patient Information"
     >
-      <SubTitle title="Patient Information" />
-      <Row gutter={[30, 10]}>
+      <SubTitle className="claim-subtitle" title="Patient Information" />
+      <Row gutter={[30, 20]}>
         <Col span={8}>
           <Form.Item
             label="Patient's Account No:"

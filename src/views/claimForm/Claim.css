@@ -7,7 +7,7 @@
 
 @media screen and (min-width: 900px) {
     .form-container{
-        width: 70%;
+        width: 80%;
         padding: 20px;
     }
 }
@@ -20,4 +20,33 @@
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
+}
+
+.ant-form-item-label {
+    padding: unset !important;
+}
+
+.ant-form-item-label > label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    color: #555;
+}
+
+.supplemental-services-close-btn:hover,
+.supplemental-services-close-btn:focus,
+.supplemental-services-close-btn:active,
+.supplemental-services-close-btn:not(:focus) {
+    border-color: unset !important;
+    border: unset;
+    outline: unset;
+}
+
+.supplemental-card-title .ant-card-head-title {
+    color: #007bff;
+    font-size: 16px;
+}
+
+.claim-subtitle {
+    color: #007bff !important;
 }

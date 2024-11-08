@@ -10,7 +10,6 @@ import {
   Row,
   Select,
 } from "antd";
-import { IoCloseOutline } from "react-icons/io5";
 import { booleanOptions, dateFormate, icdIndicatorOptions } from "../constants";
 import RadioGroup from "./RadioGroup";
 import SubTitle from "./SubTitle";
@@ -19,6 +18,7 @@ import { CustomObject } from "../../../utils/types";
 import { combineTwoObjects } from "../../../utils/functions";
 import DownloadOption from "./DownloadOption";
 import { useState } from "react";
+import { IoMdCloseCircleOutline } from "react-icons/io";
 
 interface IProps {
   prev: () => void;
@@ -60,8 +60,8 @@ export default function Diagnosis({ prev, onReset }: IProps) {
       validateTrigger={['onChange', 'onBlur']}
       layout="vertical"
     >
-      <SubTitle title="Diagnosis or Nature of Illness or Injury" />
-      <Row gutter={[30, 10]}>
+      <SubTitle className="claim-subtitle" title="Diagnosis or Nature of Illness or Injury" />
+      <Row gutter={[30, 20]}>
         <Col span={8}>
           <Form.Item
             label="ICD Indicator:"
@@ -178,24 +178,21 @@ export default function Diagnosis({ prev, onReset }: IProps) {
 
 
     
-      <SubTitle title="Supplemental Information" />
+      <SubTitle className="claim-subtitle" title="Supplemental Information" />
       <Form.List name="supplemental_information_items">
         {(fields, { add, remove }) => (
           <div style={{ display: "flex", rowGap: 16, flexDirection: "column" }}>
             {fields.map((field) => (
               <Card
                 size="small"
+                className="supplemental-card-title"
                 title={`Service No: ${field.name + 1}`}
                 key={field.key}
                 extra={
-                  <IoCloseOutline
-                    onClick={() => {
-                      remove(field.name);
-                    }}
-                  />
+                  <Button type="text" className="supplemental-services-close-btn" danger shape="circle" icon={<IoMdCloseCircleOutline size={25} />} onClick={() => remove(field.name)} />
                 }
               >
-                <Row gutter={[30, 10]}>
+                <Row gutter={[30, 20]}>
                   <Col span={8}>
                     <Form.Item
                       label="Address(Street) :"
@@ -361,7 +358,7 @@ export default function Diagnosis({ prev, onReset }: IProps) {
               </Card>
             ))}
 
-            <Button type="dashed" style={{marginBottom: 10}} onClick={() => add()} block>
+            <Button color="primary" style={{marginBottom: 10}} onClick={() => add()} variant="filled" block>
               + Add Item
             </Button>
           </div>

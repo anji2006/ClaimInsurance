@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Form, Input, InputProps, Modal } from 'antd';
+import { Form, Input, InputProps, Modal } from 'antd';
 
 interface CustomeNameProps extends InputProps {
     title: string;
-    
 }
 
 interface Name {
@@ -13,12 +12,11 @@ interface Name {
 }
 
 
-const CustomeName: React.FC<CustomeNameProps> = ({onChange, title, ...props}) => {
+const CustomeName: React.FC<CustomeNameProps> = ({onChange, title, name}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [data, setData] = useState<any>();
+  const [data, setData] = useState("");
 
   const [form] = Form.useForm();
-
 
   const handleOk = () => {
     setIsModalOpen(false);
@@ -30,16 +28,18 @@ const CustomeName: React.FC<CustomeNameProps> = ({onChange, title, ...props}) =>
     setData(name);
     form.resetFields();
 
-    {onChange && onChange( name);}
+    if (onChange) onChange(name as any);
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
   };
 
-  const onSelect = () =>{
+  const onSelect = (e: any) =>{
+    e.preventDefault();
+    e.stopPropagation();
     setIsModalOpen(true);
-  }
+  };
 
   return (
     <>
@@ -48,7 +48,7 @@ const CustomeName: React.FC<CustomeNameProps> = ({onChange, title, ...props}) =>
             value={data}
             onClick={onSelect}
             onChange={onSelect}
-            {...props} />
+            name={name} />
         <Modal title={title} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
             <Form
                 layout='vertical'

@@ -87,7 +87,7 @@ export default function Claim() {
         items={menuItems}
       />
       <Flex vertical={true} justify="center" align="center" style={{marginLeft: 256}}>
-        <SubTitle title="Claim Form" />
+        <SubTitle level={3} className="claim-subtitle" title="Claim Form" />
         <div className="form-container">{_renderPage()}</div>
       </Flex>
     </div>

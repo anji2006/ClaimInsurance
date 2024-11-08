@@ -37,8 +37,8 @@ export default function HelthServiceReferelInfo({ next, prev }: IProps) {
       layout="vertical"
       title="Insured Information"
     >
-      <SubTitle title="Health Care Provider Information" />
-      <Row gutter={[30, 10]}>
+      <SubTitle className="claim-subtitle" title="Health Care Provider Information" />
+      <Row gutter={[30, 20]}>
         <Col span={8}>
           <Form.Item
             label="Telephony Area Code:"
@@ -155,8 +155,8 @@ export default function HelthServiceReferelInfo({ next, prev }: IProps) {
 
   
 
-      <SubTitle title="Referring Provider Information" />
-      <Row gutter={[30, 10]}>
+      <SubTitle className="claim-subtitle" title="Referring Provider Information" />
+      <Row gutter={[30, 20]}>
         <Col span={8}>
           <Form.Item
             label="Referring Provider Qualifier:"
@@ -209,8 +209,8 @@ export default function HelthServiceReferelInfo({ next, prev }: IProps) {
         </Col>
       </Row>
 
-      <SubTitle title="Service Facility Information" />
-      <Row gutter={[30, 10]}>
+      <SubTitle className="claim-subtitle" title="Service Facility Information" />
+      <Row gutter={[30, 20]}>
         <Col span={8}>
           <Form.Item
             label="Service Facility Name:"

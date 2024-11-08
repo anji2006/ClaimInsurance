@@ -39,8 +39,8 @@ export default function InsuredAndPayerInfo({ next, prev }: IProps) {
       layout="vertical"
       title="Insured Information"
     >
-      <SubTitle title="Insured Information" />
-      <Row gutter={[30, 15]}>
+      <SubTitle className="claim-subtitle" title="Insured Information" />
+      <Row gutter={[30, 20]}>
         <Col span={8}>
           <Form.Item
             label="Insured Program:"
@@ -249,8 +249,8 @@ export default function InsuredAndPayerInfo({ next, prev }: IProps) {
 
 
 
-      <SubTitle title="Payer Information" />
-      <Row gutter={[30, 15]}>
+      <SubTitle className="claim-subtitle" title="Payer Information" />
+      <Row gutter={[30, 20]}>
         <Col span={8}>
           <Form.Item
             label="Carrier WCB Carrier ID:"

@@ -44,8 +44,8 @@ export default function AdditionalClaimInfo({ next, prev }: IProps) {
       validateTrigger={['onChange', 'onBlur']}
       layout="vertical"
     >
-      <SubTitle title="Additional Claim Information" />
-      <Row gutter={[30, 10]}>
+      <SubTitle className="claim-subtitle" title="Additional Claim Information" />
+      <Row gutter={[30, 20]}>
         <Col span={8}>
           <Form.Item
             label="WCB Authorization Number:"
